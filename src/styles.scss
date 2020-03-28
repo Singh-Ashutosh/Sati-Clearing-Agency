@@ -2,3 +2,26 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+input {
+    width: 100%;
+}
+
+textarea{
+    margin: 20px;
+    width: 90%;
+    height: 250px;
+}
+
+button{
+    margin: 10px;
+    font-size: 15px;
+}
+
+table{
+    margin: 10px
+}
+
+table, th, td {
+    border: 1px solid black;
+  }

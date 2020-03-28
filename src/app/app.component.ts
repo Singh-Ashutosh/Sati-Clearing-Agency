@@ -21,7 +21,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.satiClearingForm = this._fb.group({
-      xmlInput: []
+      xmlInput: ['']
     })
   }
 
@@ -31,6 +31,7 @@ export class AppComponent {
     const xml = parser.parseFromString(rawXml, 'text/xml');
     const rawObj = this.ngxXml2jsonService.xmlToJson(xml);
     this.sanitizeObject(rawObj);
+    this.satiClearingForm.get("xmlInput").patchValue('');
   }
 
   sanitizeObject(rawObj) {

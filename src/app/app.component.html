@@ -3,40 +3,43 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
+  <form [formGroup]="satiClearingForm">
+    <textarea rows="4" cols="50" placeholder="Enter XML here....." formControlName="xmlInput"></textarea>
+    <div>
+      <button [disabled]="satiClearingForm.get('xmlInput').value==''" (click)="addTable()">Add To Table</button>
+    </div>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <td>Serial Number</td>
+        <td>Number of loading lists</td>
+        <td>Serial number (M)</td>
+        <td>Value details</td>
+        <td>Total CIF</td>
+        <td>Total number of packages</td>
+        <td>Customs clearance office code</td>
+        <td>Consignee code</td>
+        <td>Total invoice</td>
+        <td>Previous document reference</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sanitizeObject of sanitizeObjects; index as i;">
+        <td>{{i+1}}</td>
+        <td>{{sanitizeObject["Number_of_loading_lists"]}}</td>
+        <td>{{sanitizeObject["Serial_number"]}}</td>
+        <td>{{sanitizeObject["Value_details"]}}</td>
+        <td>{{sanitizeObject["Total_CIF"]}}</td>
+        <td>{{sanitizeObject["Total_number_of_packages"]}}</td>
+        <td>{{sanitizeObject["Customs_clearance_office_code"]}}</td>
+        <td>{{sanitizeObject["Consignee_code"]}}</td>
+        <td>{{sanitizeObject["Total_invoice"]}}</td>
+        <td>{{sanitizeObject["Previous_document_reference"]}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button [disabled]="sanitizeObjects.length==0" (click)="downloadTable()">Export As Excel</button>
+
 </div>
-<form [formGroup]="satiClearingForm">
-  <textarea formControlName="xmlInput"></textarea>
-  <button (click)="addTable()">Add To Table</button>
-</form>
-<table>
-  <thead>
-    <tr>
-      <td>Serial Number</td>
-      <td>Number of loading lists</td>
-      <td>Serial number (M)</td>
-      <td>Value details</td>
-      <td>Total CIF</td>
-      <td>Total number of packages</td>
-      <td>Customs clearance office code</td>
-      <td>Consignee code</td>
-      <td>Total invoice</td>
-      <td>Previous document reference</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let sanitizeObject of sanitizeObjects; index as i;">
-      <td>{{i+1}}</td>
-      <td>{{sanitizeObject["Number_of_loading_lists"]}}</td>
-      <td>{{sanitizeObject["Serial_number"]}}</td>
-      <td>{{sanitizeObject["Value_details"]}}</td>
-      <td>{{sanitizeObject["Total_CIF"]}}</td>
-      <td>{{sanitizeObject["Total_number_of_packages"]}}</td>
-      <td>{{sanitizeObject["Customs_clearance_office_code"]}}</td>
-      <td>{{sanitizeObject["Consignee_code"]}}</td>
-      <td>{{sanitizeObject["Total_invoice"]}}</td>
-      <td>{{sanitizeObject["Previous_document_reference"]}}</td>
-    </tr>
-  </tbody>
-</table>
-<button (click)="downloadTable()">Export As Excel</button>
 <router-outlet></router-outlet>
