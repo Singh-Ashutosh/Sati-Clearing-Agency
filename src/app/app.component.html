@@ -1,8 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<header>
+    <div class="heading">
+      <h2>
+        {{ title }}
+      </h2>
+    </div>
+</header>
+<div class="mainarea" style="text-align:center">
   <form [formGroup]="satiClearingForm">
     <textarea rows="4" cols="50" placeholder="Enter XML here....." formControlName="xmlInput"></textarea>
     <div>
@@ -43,3 +47,12 @@
 
 </div>
 <router-outlet></router-outlet>
+
+<footer>
+    <div class="copyright">
+        <span>© 2020 All right reserved by Sati Clearing Agency.
+        </span>
+        <div> Made by
+            <a href="http://www.voraknotech.com" target="_blank">VoraknoTech</a></div>
+    </div>
+</footer>
