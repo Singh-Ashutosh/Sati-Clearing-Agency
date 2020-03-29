@@ -21,8 +21,9 @@ export class AppComponent {
 
   ngOnInit() {
     this.satiClearingForm = this._fb.group({
-      xmlInput: ['']
-    })
+      xmlInput: [''],
+      file:[]
+    });
   }
 
   addTable() {
@@ -32,6 +33,7 @@ export class AppComponent {
     const rawObj = this.ngxXml2jsonService.xmlToJson(xml);
     this.sanitizeObject(rawObj);
     this.satiClearingForm.get("xmlInput").patchValue('');
+    this.satiClearingForm.get("file").patchValue(null);
   }
 
   sanitizeObject(rawObj) {
@@ -53,17 +55,30 @@ export class AppComponent {
     this.sanitizeObjects.forEach(sanitizeObject => {
       excelData.push(
         [
-          sanitizeObject["Number_of_loading_lists"], 
-          sanitizeObject["Serial_number"], 
-          sanitizeObject["Value_details"], 
-          sanitizeObject["Total_CIF"], 
-          sanitizeObject["Total_number_of_packages"], 
-          sanitizeObject["Customs_clearance_office_code"], 
-          sanitizeObject["Consignee_code"], 
-          sanitizeObject["Total_invoice"], 
+          sanitizeObject["Number_of_loading_lists"],
+          sanitizeObject["Serial_number"],
+          sanitizeObject["Value_details"],
+          sanitizeObject["Total_CIF"],
+          sanitizeObject["Total_number_of_packages"],
+          sanitizeObject["Customs_clearance_office_code"],
+          sanitizeObject["Consignee_code"],
+          sanitizeObject["Total_invoice"],
           sanitizeObject["Previous_document_reference"]])
     });
     this.appService.generateExcel(excelData);
+  }
+
+  openFile(event) {
+    let input = event.target;
+    for (var index = 0; index < input.files.length; index++) {
+      let reader = new FileReader();
+      reader.onload = () => {
+        // this 'text' is the content of the file
+        var text = reader.result;
+        this.satiClearingForm.get("xmlInput").patchValue(text);
+      }
+      reader.readAsText(input.files[index]);
+    };
   }
 
 }
