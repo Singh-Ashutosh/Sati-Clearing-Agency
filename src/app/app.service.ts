@@ -8,7 +8,7 @@ export class AppService {
 
     generateExcel(data) {
         const title = 'Sati Clearing Agency Report';
-        const header = ["Number of loading lists", "Serial number (M)", "Value details", "Total CIF", "Exchange Rate", "Total number of packages", "Customs clearance office code", "Consignee code", "Total invoice", "Previous document reference"];
+        const header = ["CTD NO.", "PP NO.", "ADJUSTMENTS", "CUSTOMS VALUE", "CARGO", "CUST OFFICE", "PARTY", "CARGO VALUE", "L/C NO.", "EX RATE", "CURR CODE"];
         let workbook = new Workbook();
         let worksheet = workbook.addWorksheet('Sati Clearing Agency');
         let titleRow = worksheet.addRow([title]);

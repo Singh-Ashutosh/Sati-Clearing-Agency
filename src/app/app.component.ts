@@ -46,12 +46,13 @@ export class AppComponent {
     sanitizeObject["Serial_number"] = _.get(rawObj, ["ASYCUDA", "Identification", "Registration", "Number"]);
     sanitizeObject["Value_details"] = _.get(rawObj, ["ASYCUDA", "General_information", "Value_details"]);
     sanitizeObject["Total_CIF"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Total_CIF"]);
-    sanitizeObject["Exchange_Rate"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Gs_Invoice", "Currency_rate"]) + "(" + _.get(rawObj, ["ASYCUDA", "Valuation", "Gs_Invoice", "Currency_code"]) + ")";
     sanitizeObject["Total_number_of_packages"] = _.get(rawObj, ["ASYCUDA", "Property", "Nbers", "Total_number_of_packages"]);
     sanitizeObject["Customs_clearance_office_code"] = _.get(rawObj, ["ASYCUDA", "Identification", "Office_segment", "Customs_clearance_office_code"]);
     sanitizeObject["Consignee_code"] = _.get(rawObj, ["ASYCUDA", "Traders", "Consignee", "Consignee_code"]);
     sanitizeObject["Total_invoice"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Total", "Total_invoice"]);
     sanitizeObject["Previous_document_reference"] = _.get(rawObj, ["ASYCUDA", "Item", 0, "Previous_doc", "Previous_document_reference"]);
+    sanitizeObject["Exchange_Rate"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Gs_Invoice", "Currency_rate"]);
+    sanitizeObject["Currency_Code"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Gs_Invoice", "Currency_code"]);
     if (typeof sanitizeObject["Number_of_loading_lists"] !== 'string')
       sanitizeObject["Number_of_loading_lists"] = "UNDER B/E";
     if (typeof sanitizeObject["Previous_document_reference"] !== 'string')
@@ -72,12 +73,14 @@ export class AppComponent {
           sanitizeObject["Serial_number"],
           sanitizeObject["Value_details"],
           sanitizeObject["Total_CIF"],
-          sanitizeObject["Exchange_Rate"],
           sanitizeObject["Total_number_of_packages"],
           sanitizeObject["Customs_clearance_office_code"],
           sanitizeObject["Consignee_code"],
           sanitizeObject["Total_invoice"],
-          sanitizeObject["Previous_document_reference"]])
+          sanitizeObject["Previous_document_reference"],
+          sanitizeObject["Exchange_Rate"],
+          sanitizeObject["Currency_Code"]
+        ])
     });
     this.appService.generateExcel(excelData);
   }
