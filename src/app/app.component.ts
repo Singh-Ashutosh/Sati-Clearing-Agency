@@ -22,18 +22,22 @@ export class AppComponent {
   ngOnInit() {
     this.satiClearingForm = this._fb.group({
       xmlInput: [''],
-      file:[]
+      file: []
     });
   }
 
   addTable() {
     const rawXml = this.satiClearingForm.get("xmlInput").value
+    this.convertXMLtoJSON(rawXml);
+    this.satiClearingForm.get("xmlInput").patchValue('');
+    this.satiClearingForm.get("file").patchValue(null);
+  }
+
+  convertXMLtoJSON(rawXml) {
     const parser = new DOMParser();
     const xml = parser.parseFromString(rawXml, 'text/xml');
     const rawObj = this.ngxXml2jsonService.xmlToJson(xml);
     this.sanitizeObject(rawObj);
-    this.satiClearingForm.get("xmlInput").patchValue('');
-    this.satiClearingForm.get("file").patchValue(null);
   }
 
   sanitizeObject(rawObj) {
@@ -75,7 +79,7 @@ export class AppComponent {
       reader.onload = () => {
         // this 'text' is the content of the file
         var text = reader.result;
-        this.satiClearingForm.get("xmlInput").patchValue(text);
+        this.convertXMLtoJSON(text);
       }
       reader.readAsText(input.files[index]);
     };

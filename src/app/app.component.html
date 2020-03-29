@@ -9,7 +9,7 @@
 <div class="mainarea" style="text-align:center">
   <form [formGroup]="satiClearingForm">
     <textarea rows="4" cols="50" placeholder="Enter XML here....." formControlName="xmlInput"></textarea>
-    <input class="block" formControlName="file" type='file' (change)='openFile($event)'>
+    <input class="block" formControlName="file" multiple type='file' (change)='openFile($event)'>
     <div>
       <button [disabled]="satiClearingForm.get('xmlInput').value==''" (click)="addTable()">Add To Table</button>
     </div>
