@@ -46,7 +46,7 @@ export class AppService {
             // }
         });
 
-        let footerRow = worksheet.addRow(['This is system generated excel sheet.']);
+        let footerRow = worksheet.addRow(['This is system generated excel sheet.©Sati Clearing Agency.']);
         footerRow.getCell(1).fill = {
             type: 'pattern',
             pattern: 'solid',
