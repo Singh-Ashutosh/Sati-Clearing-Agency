@@ -51,6 +51,13 @@ export class AppComponent {
     sanitizeObject["Consignee_code"] = _.get(rawObj, ["ASYCUDA", "Traders", "Consignee", "Consignee_code"]);
     sanitizeObject["Total_invoice"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Total", "Total_invoice"]);
     sanitizeObject["Previous_document_reference"] = _.get(rawObj, ["ASYCUDA", "Item", 0, "Previous_doc", "Previous_document_reference"]);
+    if (typeof sanitizeObject["Number_of_loading_lists"] !== 'string')
+      sanitizeObject["Number_of_loading_lists"] = "UNDER B/E";
+    if (typeof sanitizeObject["Previous_document_reference"] !== 'string')
+      sanitizeObject["Previous_document_reference"] = "LOCAL";
+    if (typeof sanitizeObject["Total_number_of_packages"] !== 'string')
+      sanitizeObject["Total_number_of_packages"] = _.get(rawObj, ["ASYCUDA", "Item", 0, "Packages", "Number_of_packages"]);
+    console.log(sanitizeObject);
     this.sanitizeObjects.push(sanitizeObject);
   }
 
