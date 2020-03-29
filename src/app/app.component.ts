@@ -30,7 +30,6 @@ export class AppComponent {
     const rawXml = this.satiClearingForm.get("xmlInput").value
     this.convertXMLtoJSON(rawXml);
     this.satiClearingForm.get("xmlInput").patchValue('');
-    this.satiClearingForm.get("file").patchValue(null);
   }
 
   convertXMLtoJSON(rawXml) {
@@ -42,10 +41,12 @@ export class AppComponent {
 
   sanitizeObject(rawObj) {
     let sanitizeObject = {};
+    console.log(rawObj)
     sanitizeObject["Number_of_loading_lists"] = _.get(rawObj, ["ASYCUDA", "Property", "Nbers", "Number_of_loading_lists"]);
     sanitizeObject["Serial_number"] = _.get(rawObj, ["ASYCUDA", "Identification", "Registration", "Number"]);
     sanitizeObject["Value_details"] = _.get(rawObj, ["ASYCUDA", "General_information", "Value_details"]);
     sanitizeObject["Total_CIF"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Total_CIF"]);
+    sanitizeObject["Exchange_Rate"] = _.get(rawObj, ["ASYCUDA", "Valuation", "Gs_Invoice", "Currency_rate"]) + "(" + _.get(rawObj, ["ASYCUDA", "Valuation", "Gs_Invoice", "Currency_code"]) + ")";
     sanitizeObject["Total_number_of_packages"] = _.get(rawObj, ["ASYCUDA", "Property", "Nbers", "Total_number_of_packages"]);
     sanitizeObject["Customs_clearance_office_code"] = _.get(rawObj, ["ASYCUDA", "Identification", "Office_segment", "Customs_clearance_office_code"]);
     sanitizeObject["Consignee_code"] = _.get(rawObj, ["ASYCUDA", "Traders", "Consignee", "Consignee_code"]);
@@ -59,6 +60,7 @@ export class AppComponent {
       sanitizeObject["Total_number_of_packages"] = _.get(rawObj, ["ASYCUDA", "Item", 0, "Packages", "Number_of_packages"]);
     console.log(sanitizeObject);
     this.sanitizeObjects.push(sanitizeObject);
+    this.satiClearingForm.get("file").patchValue(null);
   }
 
   downloadTable() {
@@ -70,6 +72,7 @@ export class AppComponent {
           sanitizeObject["Serial_number"],
           sanitizeObject["Value_details"],
           sanitizeObject["Total_CIF"],
+          sanitizeObject["Exchange_Rate"],
           sanitizeObject["Total_number_of_packages"],
           sanitizeObject["Customs_clearance_office_code"],
           sanitizeObject["Consignee_code"],
